@@ -15,7 +15,7 @@ class MenuItem(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return self.name
+        return self.title
     
 class RecipeRequirement(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
@@ -23,11 +23,11 @@ class RecipeRequirement(models.Model):
     quantity = models.PositiveIntegerField()
 
     def __str__(self):
-        return f"{self.menu_item.name} requires {self.quantity_required} of {self.ingredient.name}"
+        return f"{self.menu_item.title} requires {self.quantity} of {self.ingredient.name}"
     
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Purchased {self.menu_item.name} at {self.purchase_time}"
+        return f"Purchased {self.menu_item.title} at {self.timestamp}"
