@@ -6,7 +6,10 @@
     <h3>Ingredients</h3>
     <ul>
     {% for ingredient in ingredients %}
-        <li>{{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}</li>
+        <li>
+            {{ ingredient.name }}: {{ ingredient.quantity }} {{ ingredient.unit }}
+            <a href="{% url 'ingredient_delete' ingredient.pk %}" class="delete-link">Delete</a>
+        </li>
     {% endfor %}
     </ul>
 </div>

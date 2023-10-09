@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView
+from django.views.generic.edit import DeleteView
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
 # Create your views here.
 
@@ -10,6 +12,11 @@ class InventoryView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['ingredients'] = Ingredient.objects.all()
         return context
+
+class IngredientDeleteView(DeleteView):
+    model = Ingredient
+    template_name = 'ingredient_confirm_delete.html'
+    success_url = reverse_lazy('inventory')   
     
 class PurchaseView(TemplateView):
     template_name = 'purchase.html'
