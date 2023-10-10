@@ -1,33 +1,34 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.db.models import Sum
 from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
 # Create your views here.
 
 class InventoryView(TemplateView):
-    template_name = 'inventory.html'
+    template_name = 'inventory/inventory.html'
 
-    def get_context_data(self, **kwargs)
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['ingredients'] = Ingredient.objects.all()
         return context
 
 class IngredientDeleteView(DeleteView):
     model = Ingredient
-    template_name = 'ingredient_confirm_delete.html'
+    template_name = 'inventory/ingredient_confirm_delete.html'
     success_url = reverse_lazy('inventory')   
     
 class PurchaseView(TemplateView):
-    template_name = 'purchase.html'
+    template_name = 'inventory/purchase.html'
 
-    def get_contest_data(self, **kwargs)
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['purchases'] = Purchase.objects.all()
         return context
     
 class MenuView(TemplateView):
-    template_name = 'menu.html'
+    template_name = 'inventory/menu.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -35,7 +36,7 @@ class MenuView(TemplateView):
         return context
     
 class FinancialsView(TemplateView):
-    template_name = 'financials.html'
+    template_name = 'inventory/financials.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

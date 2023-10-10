@@ -1,0 +1,21 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h1>Purchases</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Menu Item</th>
+            <th>Timestamp</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for purchase in purchases %}
+        <tr>
+            <td>{{ purchase.menu_item.title }}</td>
+            <td>{{ purchase.timestamp }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

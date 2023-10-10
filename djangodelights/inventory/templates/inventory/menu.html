@@ -1,0 +1,10 @@
+{% extends 'inventory/base.html' %}
+
+{% block content %}
+<h1>Menu</h1>
+<ul>
+    {% for item in menu_items %}
+    <li>{{ item.title }} - ${{ item.price }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
