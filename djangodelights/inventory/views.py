@@ -8,6 +8,9 @@ from django.views.generic.edit import DeleteView
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
 # Create your views here.
 
+def home(request):
+    return render(request, 'inventory/base.html')
+
 def add_ingredient(request):
     if request.method == 'POST':
         form = IngredientForm(request.POST)
