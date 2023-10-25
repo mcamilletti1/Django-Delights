@@ -6,11 +6,14 @@ from django.db.models import Sum
 from django.views.generic import TemplateView
 from django.views.generic.edit import DeleteView
 from .models import Ingredient, MenuItem, RecipeRequirement, Purchase
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 def home(request):
     return render(request, 'inventory/base.html')
 
+@login_required
 def add_ingredient(request):
     if request.method == 'POST':
         form = IngredientForm(request.POST)
@@ -21,6 +24,7 @@ def add_ingredient(request):
         form = IngredientForm()
     return render(request, 'add_ingredient.html', {'form': form})
 
+@login_required
 def purchase_menu_item(request):
     if request.method == 'POST':
         form = PurchaseForm(request.POST)
@@ -38,7 +42,8 @@ def purchase_menu_item(request):
         else:
             form = PurchaseForm()
         return render(request, 'purchase_menu_item.html', {'form': form})
-    
+ 
+@login_required   
 def add_menu_item(request):
     if request.method == 'POST':
         form = MenuItemForm(request.POST)
@@ -49,6 +54,7 @@ def add_menu_item(request):
         form = MenuItemForm()
     return render(request, 'add_menu_item.html', {'form': form})
 
+@login_required
 def add_recipe_requirement(request):
     if request.method == 'POST':
         form = RecipeRequirementForm(request.POST)
@@ -67,7 +73,7 @@ class InventoryView(TemplateView):
         context['ingredients'] = Ingredient.objects.all()
         return context
 
-class IngredientDeleteView(DeleteView):
+class IngredientDeleteView(LoginRequiredMixin, DeleteView):
     model = Ingredient
     template_name = 'inventory/ingredient_confirm_delete.html'
     success_url = reverse_lazy('inventory')   
