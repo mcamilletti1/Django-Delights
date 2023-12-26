@@ -100,7 +100,7 @@ class FinancialsView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         total_revenue = Purchase.objects.aggregate(total=Sum('menu_item__price'))['total']
-        total_cost = sum([req.ingredient.unit_price * req.quantity for purchase in Purchase.objects.all() for req in RecipeRequirement.objects.filter(menu_item=purchase.menu_item)])
+        total_cost = sum(req.ingredient.unit_price * req.quantity for purchase in Purchase.objects.all() for req in RecipeRequirement.objects.filter(menu_item=purchase.menu_item))
         context['total_revenue'] = total_revenue
         context['total_cost'] = total_cost
         context['profit'] = total_revenue - total_cost
